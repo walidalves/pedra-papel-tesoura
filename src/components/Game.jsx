@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Game = ({ setScore }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { playerChoice } = location.state || {};
   const [computerChoice, setComputerChoice] = useState(null);
   const [result, setResult] = useState('');
@@ -49,6 +50,13 @@ const Game = ({ setScore }) => {
     setPlayerWins(0);
     setComputerWins(0);
     setScore(0);
+    navigate('/');
+  };
+
+  const playAgain = () => {
+    setComputerChoice(null);
+    setResult('');
+    navigate('/');
   };
 
   return (
@@ -58,6 +66,9 @@ const Game = ({ setScore }) => {
       <p>Resultado: {result}</p>
       <p>Vitórias do Jogador: {playerWins}</p>
       <p>Vitórias do Computador: {computerWins}</p>
+      <button onClick={playAgain} className="button">
+        Jogar Novamente
+      </button>
     </div>
   );
 };
