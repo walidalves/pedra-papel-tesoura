@@ -4,6 +4,8 @@ import Modal from 'react-modal';
 Modal.setAppElement('#root');
 
 const RulesModal = ({ isOpen, onClose }) => {
+  console.log("RulesModal isOpen: ", isOpen);
+
   return (
     <Modal
       isOpen={isOpen}
