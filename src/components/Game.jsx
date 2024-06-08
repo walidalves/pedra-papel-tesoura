@@ -1,4 +1,4 @@
-//Imports and Declarations
+// Imports and Declarations
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -6,13 +6,14 @@ const Game = ({ setScore }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { playerChoice } = location.state || {};
-  //States
+  
+  // States
   const [computerChoice, setComputerChoice] = useState(null);
   const [result, setResult] = useState('');
   const [playerWins, setPlayerWins] = useState(0);
   const [computerWins, setComputerWins] = useState(0);
 
-  //Computer Choice
+  // Computer Choice
   useEffect(() => {
     if (playerChoice) {
       const choices = ['rock', 'paper', 'scissors'];
@@ -22,8 +23,9 @@ const Game = ({ setScore }) => {
     }
   }, [playerChoice]);
   
-  //Winner Function
+  // Winner Function
   const determineWinner = (player, computer) => {
+    console.log(`Player Choice: ${player}, Computer Choice: ${computer}`);
     if (player === computer) {
       setResult('Empate!');
     } else if (
@@ -32,16 +34,29 @@ const Game = ({ setScore }) => {
       (player === 'paper' && computer === 'rock')
     ) {
       setResult('Você venceu!');
-      setScore((score) => score + 1);
-      setPlayerWins((wins) => wins + 1);
+      setPlayerWins(prevWins => {
+        const newWins = prevWins + 1;
+        console.log(`Player Wins: ${newWins}`);
+        setScore(prevScore => {
+          const newScore = prevScore + 1;
+          console.log(`Score: ${newScore}`);
+          return newScore;
+        });
+        return newWins;
+      });
     } else {
       setResult('Você perdeu!');
-      setComputerWins((wins) => wins + 1);
+      setComputerWins(prevWins => {
+        const newWins = prevWins + 1;
+        console.log(`Computer Wins: ${newWins}`);
+        return newWins;
+      });
     }
   };
 
   // Win Check
   useEffect(() => {
+    console.log(`Player Wins: ${playerWins}, Computer Wins: ${computerWins}`);
     if (playerWins === 3) {
       alert('Parabéns! Você ganhou o jogo!');
       resetGame();
@@ -53,6 +68,7 @@ const Game = ({ setScore }) => {
 
   // General Reset
   const resetGame = () => {
+    console.log('Resetting game...');
     setPlayerWins(0);
     setComputerWins(0);
     setScore(0);
@@ -66,7 +82,7 @@ const Game = ({ setScore }) => {
     navigate('/');
   };
   
-  //Rendering
+  // Rendering
   return (
     <div className="result">
       <p>Você escolheu: {playerChoice}</p>

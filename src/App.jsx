@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Play from './components/Play';
 import Game from './components/Game';
@@ -22,6 +22,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Play />} />
           <Route path="/game" element={<Game setScore={setScore} />} />
+          <Route path="/play-again" element={<Navigate to="/" />} />
         </Routes>
         <Footer setModalIsOpen={setModalIsOpen} />
         <RulesModal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)} />
