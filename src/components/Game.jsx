@@ -37,13 +37,9 @@ const Game = ({ setScore }) => {
       setPlayerWins(prevWins => {
         const newWins = prevWins + 1;
         console.log(`Player Wins: ${newWins}`);
-        setScore(prevScore => {
-          const newScore = prevScore + 1;
-          console.log(`Score: ${newScore}`);
-          return newScore;
-        });
         return newWins;
       });
+      setScore(prevScore => prevScore + 1); 
     } else {
       setResult('Você perdeu!');
       setComputerWins(prevWins => {
