@@ -16,7 +16,7 @@ const Game = ({ setScore }) => {
   // Computer Choice
   useEffect(() => {
     if (playerChoice) {
-      const choices = ['rock', 'paper', 'scissors'];
+      const choices = ['Pedra', 'Papel', 'Tesoura'];
       const randomChoice = choices[Math.floor(Math.random() * choices.length)];
       setComputerChoice(randomChoice);
       determineWinner(playerChoice, randomChoice);
@@ -29,9 +29,9 @@ const Game = ({ setScore }) => {
     if (player === computer) {
       setResult('Empate!');
     } else if (
-      (player === 'rock' && computer === 'scissors') ||
-      (player === 'scissors' && computer === 'paper') ||
-      (player === 'paper' && computer === 'rock')
+      (player === 'Pedra' && computer === 'Tesoura') ||
+      (player === 'Tesoura' && computer === 'Papel') ||
+      (player === 'Papel' && computer === 'Pedra')
     ) {
       setResult('Você venceu!');
       setPlayerWins(prevWins => {
@@ -68,7 +68,7 @@ const Game = ({ setScore }) => {
 
   // General Reset
   const resetGame = () => {
-    console.log('Resetting game...');
+    console.log('Resetando o jogo...');
     setPlayerWins(0);
     setComputerWins(0);
     setScore(0);

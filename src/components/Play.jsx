@@ -12,13 +12,13 @@ const Play = () => {
     <div className="flex flex-col items-center justify-center">
       <h1 className="header">Escolha Pedra, Papel ou Tesoura</h1>
       <div className="flex space-x-4 choice-buttons">
-        <button onClick={() => handleChoice('rock')} className="button">
+        <button onClick={() => handleChoice('Pedra')} className="button">
           Pedra
         </button>
-        <button onClick={() => handleChoice('paper')} className="button">
+        <button onClick={() => handleChoice('Papel')} className="button">
           Papel
         </button>
-        <button onClick={() => handleChoice('scissors')} className="button">
+        <button onClick={() => handleChoice('Tesoura')} className="button">
           Tesoura
         </button>
       </div>
