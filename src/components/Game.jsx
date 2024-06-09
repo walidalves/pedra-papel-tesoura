@@ -6,7 +6,7 @@ const Game = ({ setScore }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { playerChoice } = location.state || {};
-  
+
   // States
   const [computerChoice, setComputerChoice] = useState(null);
   const [result, setResult] = useState('');
@@ -22,7 +22,7 @@ const Game = ({ setScore }) => {
       determineWinner(playerChoice, randomChoice);
     }
   }, [playerChoice]);
-  
+
   // Winner Function
   const determineWinner = (player, computer) => {
     console.log(`Player Choice: ${player}, Computer Choice: ${computer}`);
@@ -36,15 +36,15 @@ const Game = ({ setScore }) => {
       setResult('Você venceu!');
       setPlayerWins(prevWins => {
         const newWins = prevWins + 1;
-        console.log(`Player Wins: ${newWins}`);
+        console.log(`Player Wins (inside update): ${newWins}`);
         return newWins;
       });
-      setScore(prevScore => prevScore + 1); 
+      setScore(prevScore => prevScore + 1);
     } else {
       setResult('Você perdeu!');
       setComputerWins(prevWins => {
         const newWins = prevWins + 1;
-        console.log(`Computer Wins: ${newWins}`);
+        console.log(`Computer Wins (inside update): ${newWins}`);
         return newWins;
       });
     }
@@ -52,11 +52,11 @@ const Game = ({ setScore }) => {
 
   // Win Check
   useEffect(() => {
-    console.log(`Player Wins: ${playerWins}, Computer Wins: ${computerWins}`);
-    if (playerWins === 3) {
+    console.log(`Player Wins (useEffect): ${playerWins}, Computer Wins (useEffect): ${computerWins}`);
+    if (playerWins >= 3) {
       alert('Parabéns! Você ganhou o jogo!');
       resetGame();
-    } else if (computerWins === 3) {
+    } else if (computerWins >= 3) {
       alert('Que pena! Você perdeu o jogo.');
       resetGame();
     }
@@ -77,7 +77,7 @@ const Game = ({ setScore }) => {
     setResult('');
     navigate('/');
   };
-  
+
   // Rendering
   return (
     <div className="result">
