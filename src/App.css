@@ -1,3 +1,4 @@
+/* Mantém o CSS existente */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -86,4 +87,23 @@
 
 .choice-buttons button {
   @apply px-4 py-2 bg-gray-500 text-white rounded m-2;
+}
+
+.result {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.button:hover {
+  background-color: #45a049;
 }
