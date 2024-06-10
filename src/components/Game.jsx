@@ -27,9 +27,9 @@ const Game = ({ setScore }) => {
     if (player === computer) {
       setResult('Empate!');
     } else if (
-        (player === 'Pedra' && computer === 'Tesoura') ||
-        (player === 'Tesoura' && computer === 'Papel') ||
-        (player === 'Papel' && computer === 'Pedra')
+      (player === 'Pedra' && computer === 'Tesoura') ||
+      (player === 'Tesoura' && computer === 'Papel') ||
+      (player === 'Papel' && computer === 'Pedra')
     ) {
       setResult('Você venceu!');
       setRoundWins(prevWins => {
@@ -49,13 +49,12 @@ const Game = ({ setScore }) => {
 
   // Win Check
   useEffect(() => {
-    const { player, computer } = roundWins;
-    console.log(`Player Wins (useEffect): ${player}, Computer Wins (useEffect): ${computer}`);
-    if (player >= 3) {
+    console.log(`Player Wins: ${roundWins.player}, Computer Wins: ${roundWins.computer}`);
+    if (roundWins.player >= 2) {
       alert('Parabéns! Você ganhou a melhor de três!');
       setScore(prevScore => prevScore + 1);
       resetGame();
-    } else if (computer >= 3) {
+    } else if (roundWins.computer >= 2) {
       alert('Que pena! Você perdeu a melhor de três.');
       resetGame();
     }
@@ -66,6 +65,7 @@ const Game = ({ setScore }) => {
     console.log('Resetando o jogo...');
     setRoundWins({ player: 0, computer: 0 });
     setResult('');
+    setComputerChoice(null);
     navigate('/');
   };
 
