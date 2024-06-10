@@ -1,4 +1,3 @@
-// Imports and Declarations
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -10,8 +9,7 @@ const Game = ({ setScore }) => {
   // States
   const [computerChoice, setComputerChoice] = useState(null);
   const [result, setResult] = useState('');
-  const [playerWins, setPlayerWins] = useState(0);
-  const [computerWins, setComputerWins] = useState(0);
+  const [roundWins, setRoundWins] = useState({ player: 0, computer: 0 });
 
   // Computer Choice
   useEffect(() => {
@@ -29,22 +27,21 @@ const Game = ({ setScore }) => {
     if (player === computer) {
       setResult('Empate!');
     } else if (
-      (player === 'Pedra' && computer === 'Tesoura') ||
-      (player === 'Tesoura' && computer === 'Papel') ||
-      (player === 'Papel' && computer === 'Pedra')
+        (player === 'Pedra' && computer === 'Tesoura') ||
+        (player === 'Tesoura' && computer === 'Papel') ||
+        (player === 'Papel' && computer === 'Pedra')
     ) {
       setResult('Você venceu!');
-      setPlayerWins(prevWins => {
-        const newWins = prevWins + 1;
-        console.log(`Player Wins (inside update): ${newWins}`);
+      setRoundWins(prevWins => {
+        const newWins = { ...prevWins, player: prevWins.player + 1 };
+        console.log(`Updated Round Wins (Player): ${JSON.stringify(newWins)}`);
         return newWins;
       });
-      setScore(prevScore => prevScore + 1);
     } else {
       setResult('Você perdeu!');
-      setComputerWins(prevWins => {
-        const newWins = prevWins + 1;
-        console.log(`Computer Wins (inside update): ${newWins}`);
+      setRoundWins(prevWins => {
+        const newWins = { ...prevWins, computer: prevWins.computer + 1 };
+        console.log(`Updated Round Wins (Computer): ${JSON.stringify(newWins)}`);
         return newWins;
       });
     }
@@ -52,22 +49,23 @@ const Game = ({ setScore }) => {
 
   // Win Check
   useEffect(() => {
-    console.log(`Player Wins (useEffect): ${playerWins}, Computer Wins (useEffect): ${computerWins}`);
-    if (playerWins >= 3) {
-      alert('Parabéns! Você ganhou o jogo!');
+    const { player, computer } = roundWins;
+    console.log(`Player Wins (useEffect): ${player}, Computer Wins (useEffect): ${computer}`);
+    if (player >= 3) {
+      alert('Parabéns! Você ganhou a melhor de três!');
+      setScore(prevScore => prevScore + 1);
       resetGame();
-    } else if (computerWins >= 3) {
-      alert('Que pena! Você perdeu o jogo.');
+    } else if (computer >= 3) {
+      alert('Que pena! Você perdeu a melhor de três.');
       resetGame();
     }
-  }, [playerWins, computerWins]);
+  }, [roundWins, setScore]);
 
   // General Reset
   const resetGame = () => {
     console.log('Resetando o jogo...');
-    setPlayerWins(0);
-    setComputerWins(0);
-    setScore(0);
+    setRoundWins({ player: 0, computer: 0 });
+    setResult('');
     navigate('/');
   };
 
@@ -84,8 +82,6 @@ const Game = ({ setScore }) => {
       <p>Você escolheu: {playerChoice}</p>
       <p>O computador escolheu: {computerChoice}</p>
       <p>Resultado: {result}</p>
-      <p>Vitórias do Jogador: {playerWins}</p>
-      <p>Vitórias do Computador: {computerWins}</p>
       <button onClick={playAgain} className="button">
         Jogar Novamente
       </button>
