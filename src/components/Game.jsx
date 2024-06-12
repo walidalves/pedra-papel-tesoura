@@ -26,7 +26,6 @@ const Game = ({ setScore }) => {
     console.log(`Player Choice: ${player}, Computer Choice: ${computer}`);
     if (player === computer) {
       setResult('Empate!');
-      return;
     } else if (
       (player === 'Pedra' && computer === 'Tesoura') ||
       (player === 'Tesoura' && computer === 'Papel') ||
