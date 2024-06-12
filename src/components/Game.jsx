@@ -26,24 +26,17 @@ const Game = ({ setScore }) => {
     console.log(`Player Choice: ${player}, Computer Choice: ${computer}`);
     if (player === computer) {
       setResult('Empate!');
+      return;
     } else if (
       (player === 'Pedra' && computer === 'Tesoura') ||
       (player === 'Tesoura' && computer === 'Papel') ||
       (player === 'Papel' && computer === 'Pedra')
     ) {
       setResult('Você venceu!');
-      setRoundWins(prevWins => {
-        const newWins = { ...prevWins, player: prevWins.player + 1 };
-        console.log(`Updated Round Wins (Player): ${JSON.stringify(newWins)}`);
-        return newWins;
-      });
+      setRoundWins(prevWins => ({ ...prevWins, player: prevWins.player + 1 }));
     } else {
       setResult('Você perdeu!');
-      setRoundWins(prevWins => {
-        const newWins = { ...prevWins, computer: prevWins.computer + 1 };
-        console.log(`Updated Round Wins (Computer): ${JSON.stringify(newWins)}`);
-        return newWins;
-      });
+      setRoundWins(prevWins => ({ ...prevWins, computer: prevWins.computer + 1 }));
     }
   };
 
