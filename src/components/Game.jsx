@@ -6,12 +6,9 @@ const Game = ({ setScore }) => {
   const navigate = useNavigate();
   const { playerChoice } = location.state || {};
 
-  // States
   const [computerChoice, setComputerChoice] = useState(null);
   const [result, setResult] = useState('');
-  const [roundWins, setRoundWins] = useState({ player: 0, computer: 0 });
 
-  // Computer Choice
   useEffect(() => {
     if (playerChoice) {
       const choices = ['Pedra', 'Papel', 'Tesoura'];
@@ -21,7 +18,6 @@ const Game = ({ setScore }) => {
     }
   }, [playerChoice]);
 
-  // Winner Function
   const determineWinner = (player, computer) => {
     console.log(`Player Choice: ${player}, Computer Choice: ${computer}`);
     if (player === computer) {
@@ -32,43 +28,18 @@ const Game = ({ setScore }) => {
       (player === 'Papel' && computer === 'Pedra')
     ) {
       setResult('Você venceu!');
-      setRoundWins(prevWins => ({ ...prevWins, player: prevWins.player + 1 }));
+      setScore(prevScore => prevScore + 1);
     } else {
       setResult('Você perdeu!');
-      setRoundWins(prevWins => ({ ...prevWins, computer: prevWins.computer + 1 }));
     }
   };
 
-  // Win Check
-  useEffect(() => {
-    console.log(`Player Wins: ${roundWins.player}, Computer Wins: ${roundWins.computer}`);
-    if (roundWins.player >= 2) {
-      alert('Parabéns! Você ganhou a melhor de três!');
-      setScore(prevScore => prevScore + 1);
-      resetGame();
-    } else if (roundWins.computer >= 2) {
-      alert('Que pena! Você perdeu a melhor de três.');
-      resetGame();
-    }
-  }, [roundWins, setScore]);
-
-  // General Reset
-  const resetGame = () => {
-    console.log('Resetando o jogo...');
-    setRoundWins({ player: 0, computer: 0 });
-    setResult('');
-    setComputerChoice(null);
-    navigate('/');
-  };
-
-  // General Play Again
   const playAgain = () => {
     setComputerChoice(null);
     setResult('');
     navigate('/');
   };
 
-  // Rendering
   return (
     <div className="result">
       <p>Você escolheu: {playerChoice}</p>
