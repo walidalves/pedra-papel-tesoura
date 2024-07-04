@@ -8,18 +8,35 @@ const Game = ({ setScore }) => {
 
   const [computerChoice, setComputerChoice] = useState(null);
   const [result, setResult] = useState('');
+  const [winnerDetermined, setWinnerDetermined] = useState(false);
+  const [previousComputerChoice, setPreviousComputerChoice] = useState(null);
 
   useEffect(() => {
-    if (playerChoice) {
+    if (playerChoice && computerChoice === null) {
+      console.log('Player Choice:', playerChoice);
       const choices = ['Pedra', 'Papel', 'Tesoura'];
-      const randomChoice = choices[Math.floor(Math.random() * choices.length)];
+      let randomChoice = choices[Math.floor(Math.random() * choices.length)];
+
+      // Verificar se a escolha aleatória é a mesma da escolha anterior
+      while (randomChoice === previousComputerChoice) {
+        randomChoice = choices[Math.floor(Math.random() * choices.length)];
+      }
+
+      console.log('Computer Choice:', randomChoice);
       setComputerChoice(randomChoice);
-      determineWinner(playerChoice, randomChoice);
+      setPreviousComputerChoice(randomChoice);
     }
-  }, [playerChoice]);
+  }, [playerChoice, computerChoice, previousComputerChoice]);
+
+  useEffect(() => {
+    if (computerChoice && !winnerDetermined) {
+      determineWinner(playerChoice, computerChoice);
+      setWinnerDetermined(true);
+    }
+  }, [computerChoice, winnerDetermined, playerChoice]);
 
   const determineWinner = (player, computer) => {
-    console.log(`Player Choice: ${player}, Computer Choice: ${computer}`);
+    console.log(`Determining Winner - Player Choice: ${player}, Computer Choice: ${computer}`);
     if (player === computer) {
       setResult('Empate!');
     } else if (
@@ -28,7 +45,10 @@ const Game = ({ setScore }) => {
       (player === 'Papel' && computer === 'Pedra')
     ) {
       setResult('Você venceu!');
-      setScore(prevScore => prevScore + 1);
+      setScore(prevScore => {
+        console.log('Incrementing Score');
+        return prevScore + 1;
+      });
     } else {
       setResult('Você perdeu!');
     }
@@ -37,6 +57,7 @@ const Game = ({ setScore }) => {
   const playAgain = () => {
     setComputerChoice(null);
     setResult('');
+    setWinnerDetermined(false);
     navigate('/');
   };
 
