@@ -6,24 +6,39 @@ const Game = ({ setScore }) => {
   const navigate = useNavigate();
   const { playerChoice } = location.state || {};
 
-  // States
   const [computerChoice, setComputerChoice] = useState(null);
   const [result, setResult] = useState('');
-  const [roundWins, setRoundWins] = useState({ player: 0, computer: 0 });
+  const [winnerDetermined, setWinnerDetermined] = useState(false);
+  const [previousComputerChoice, setPreviousComputerChoice] = useState(null);
 
-  // Computer Choice
   useEffect(() => {
-    if (playerChoice) {
+    if (playerChoice && computerChoice === null) {
+      console.log('Player Choice:', playerChoice);
       const choices = ['Pedra', 'Papel', 'Tesoura'];
-      const randomChoice = choices[Math.floor(Math.random() * choices.length)];
-      setComputerChoice(randomChoice);
-      determineWinner(playerChoice, randomChoice);
-    }
-  }, [playerChoice]);
+      let randomChoice = choices[Math.floor(Math.random() * choices.length)];
 
-  // Winner Function
+      // Verificar se a escolha aleatória é a mesma da escolha anterior
+      if (previousComputerChoice === 'Pedra') {
+        while (randomChoice === 'Pedra') {
+          randomChoice = choices[Math.floor(Math.random() * choices.length)];
+        }
+      }
+
+      console.log('Computer Choice:', randomChoice);
+      setComputerChoice(randomChoice);
+      setPreviousComputerChoice(randomChoice);
+    }
+  }, [playerChoice, computerChoice, previousComputerChoice]);
+
+  useEffect(() => {
+    if (computerChoice && !winnerDetermined) {
+      determineWinner(playerChoice, computerChoice);
+      setWinnerDetermined(true);
+    }
+  }, [computerChoice, winnerDetermined, playerChoice]);
+
   const determineWinner = (player, computer) => {
-    console.log(`Player Choice: ${player}, Computer Choice: ${computer}`);
+    console.log(`Determining Winner - Player Choice: ${player}, Computer Choice: ${computer}`);
     if (player === computer) {
       setResult('Empate!');
     } else if (
@@ -32,51 +47,22 @@ const Game = ({ setScore }) => {
       (player === 'Papel' && computer === 'Pedra')
     ) {
       setResult('Você venceu!');
-      setRoundWins(prevWins => {
-        const newWins = { ...prevWins, player: prevWins.player + 1 };
-        console.log(`Updated Round Wins (Player): ${JSON.stringify(newWins)}`);
-        return newWins;
+      setScore(prevScore => {
+        console.log('Incrementing Score');
+        return prevScore + 1;
       });
     } else {
       setResult('Você perdeu!');
-      setRoundWins(prevWins => {
-        const newWins = { ...prevWins, computer: prevWins.computer + 1 };
-        console.log(`Updated Round Wins (Computer): ${JSON.stringify(newWins)}`);
-        return newWins;
-      });
     }
   };
 
-  // Win Check
-  useEffect(() => {
-    console.log(`Player Wins: ${roundWins.player}, Computer Wins: ${roundWins.computer}`);
-    if (roundWins.player >= 2) {
-      alert('Parabéns! Você ganhou a melhor de três!');
-      setScore(prevScore => prevScore + 1);
-      resetGame();
-    } else if (roundWins.computer >= 2) {
-      alert('Que pena! Você perdeu a melhor de três.');
-      resetGame();
-    }
-  }, [roundWins, setScore]);
-
-  // General Reset
-  const resetGame = () => {
-    console.log('Resetando o jogo...');
-    setRoundWins({ player: 0, computer: 0 });
-    setResult('');
-    setComputerChoice(null);
-    navigate('/');
-  };
-
-  // General Play Again
   const playAgain = () => {
     setComputerChoice(null);
     setResult('');
+    setWinnerDetermined(false);
     navigate('/');
   };
 
-  // Rendering
   return (
     <div className="result">
       <p>Você escolheu: {playerChoice}</p>

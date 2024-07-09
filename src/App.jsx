@@ -15,6 +15,10 @@ const App = () => {
     console.log("Modal State: ", modalIsOpen);
   }, [modalIsOpen]);
 
+  const resetScore = () => {
+    setScore(0);
+  };
+
   return (
     <Router>
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
@@ -24,7 +28,7 @@ const App = () => {
           <Route path="/game" element={<Game setScore={setScore} />} />
           <Route path="/play-again" element={<Navigate to="/" />} />
         </Routes>
-        <Footer setModalIsOpen={setModalIsOpen} />
+        <Footer setModalIsOpen={setModalIsOpen} resetScore={resetScore} />
         <RulesModal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)} />
       </div>
     </Router>
