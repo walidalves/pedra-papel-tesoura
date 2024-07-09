@@ -18,8 +18,10 @@ const Game = ({ setScore }) => {
       let randomChoice = choices[Math.floor(Math.random() * choices.length)];
 
       // Verificar se a escolha aleatória é a mesma da escolha anterior
-      while (randomChoice === previousComputerChoice) {
-        randomChoice = choices[Math.floor(Math.random() * choices.length)];
+      if (previousComputerChoice === 'Pedra') {
+        while (randomChoice === 'Pedra') {
+          randomChoice = choices[Math.floor(Math.random() * choices.length)];
+        }
       }
 
       console.log('Computer Choice:', randomChoice);
