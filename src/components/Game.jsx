@@ -15,13 +15,14 @@ const Game = ({ setScore }) => {
     if (playerChoice && computerChoice === null) {
       console.log('Player Choice:', playerChoice);
       const choices = ['Pedra', 'Papel', 'Tesoura'];
-      let randomChoice = choices[Math.floor(Math.random() * choices.length)];
+      let randomChoice;
 
-      // Verificar se a escolha aleatória é a mesma da escolha anterior
+      // Verificar se a escolha anterior foi 'Pedra'
       if (previousComputerChoice === 'Pedra') {
-        while (randomChoice === 'Pedra') {
-          randomChoice = choices[Math.floor(Math.random() * choices.length)];
-        }
+        const newChoices = ['Papel', 'Tesoura'];
+        randomChoice = newChoices[Math.floor(Math.random() * newChoices.length)];
+      } else {
+        randomChoice = choices[Math.floor(Math.random() * choices.length)];
       }
 
       console.log('Computer Choice:', randomChoice);
