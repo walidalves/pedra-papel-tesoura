@@ -12,7 +12,7 @@ const Game = ({ setScore }) => {
   const [previousComputerChoice, setPreviousComputerChoice] = useState(null);
 
   useEffect(() => {
-    if (playerChoice && computerChoice === null) {
+    if (playerChoice !== null && computerChoice === null) {
       console.log('Player Choice:', playerChoice);
       const choices = ['Pedra', 'Papel', 'Tesoura'];
       let randomChoice;
@@ -63,6 +63,10 @@ const Game = ({ setScore }) => {
     setWinnerDetermined(false);
     navigate('/');
   };
+
+  if (playerChoice === undefined) {
+    return <div>Carregando...</div>;
+  }
 
   return (
     <div className="result">
