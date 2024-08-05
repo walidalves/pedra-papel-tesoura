@@ -14,22 +14,22 @@ const Game = ({ setScore }) => {
   useEffect(() => {
     if (playerChoice !== null && computerChoice === null) {
       console.log('Player Choice:', playerChoice);
-      const choices = ['Pedra', 'Papel', 'Tesoura'];
+      const choices = ['Rock', 'Paper', 'Scissors'];
       let randomChoice;
-
-      // Verificar se a escolha anterior foi 'Pedra'
-      if (previousComputerChoice === 'Pedra') {
-        const newChoices = ['Papel', 'Tesoura'];
+  
+      // Check if the previous choice was 'Rock'
+      if (previousComputerChoice === 'Rock') {
+        const newChoices = ['Paper', 'Scissors'];
         randomChoice = newChoices[Math.floor(Math.random() * newChoices.length)];
       } else {
         randomChoice = choices[Math.floor(Math.random() * choices.length)];
       }
-
+  
       console.log('Computer Choice:', randomChoice);
       setComputerChoice(randomChoice);
       setPreviousComputerChoice(randomChoice);
     }
-  }, [playerChoice, computerChoice, previousComputerChoice]);
+  }, [playerChoice, computerChoice, previousComputerChoice]);  
 
   useEffect(() => {
     if (computerChoice && !winnerDetermined) {
@@ -41,21 +41,21 @@ const Game = ({ setScore }) => {
   const determineWinner = (player, computer) => {
     console.log(`Determining Winner - Player Choice: ${player}, Computer Choice: ${computer}`);
     if (player === computer) {
-      setResult('Empate!');
+      setResult('Draw!');
     } else if (
-      (player === 'Pedra' && computer === 'Tesoura') ||
-      (player === 'Tesoura' && computer === 'Papel') ||
-      (player === 'Papel' && computer === 'Pedra')
+      (player === 'Rock' && computer === 'Scissors') ||
+      (player === 'Scissors' && computer === 'Paper') ||
+      (player === 'Paper' && computer === 'Rock')
     ) {
-      setResult('Você venceu!');
+      setResult('You won!');
       setScore(prevScore => {
         console.log('Incrementing Score');
         return prevScore + 1;
       });
     } else {
-      setResult('Você perdeu!');
+      setResult('You lost!');
     }
-  };
+  };  
 
   const playAgain = () => {
     setComputerChoice(null);
@@ -65,16 +65,16 @@ const Game = ({ setScore }) => {
   };
 
   if (playerChoice === undefined) {
-    return <div>Carregando...</div>;
+    return <div>Loading...</div>;
   }
 
   return (
     <div className="result">
-      <p>Você escolheu: {playerChoice}</p>
-      <p>O computador escolheu: {computerChoice}</p>
-      <p>Resultado: {result}</p>
+      <p>You chose: {playerChoice}</p>
+      <p>The computer chose: {computerChoice}</p>
+      <p>Result: {result}</p>
       <button onClick={playAgain} className="button">
-        Jogar Novamente
+        Play Again
       </button>
     </div>
   );
