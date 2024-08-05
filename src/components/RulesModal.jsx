@@ -10,22 +10,22 @@ const RulesModal = ({ isOpen, onClose }) => {
     <Modal
       isOpen={isOpen}
       onRequestClose={onClose}
-      contentLabel="Regras do Jogo"
+      contentLabel="Game Rules"
       className="modal"
       overlayClassName="overlay"
     >
-      <h2 className="text-2xl font-bold">Regras do Jogo</h2>
+      <h2 className="text-2xl font-bold">Game Rules</h2>
       <ul className="mt-4">
-        <li>Pedra ganha da tesoura (amassando-a ou quebrando-a).</li>
-        <li>Tesoura ganha do papel (cortando-o).</li>
-        <li>Papel ganha da pedra (embrulhando-a).</li>
-        <li>Não é permitido mostrar pedra duas vezes seguidas.</li>
+        <li>Rock beats scissors (by crushing or breaking them).</li>
+        <li>Scissors beat paper (by cutting it).</li>
+        <li>Paper beats rock (by wrapping it).</li>
+        <li>Showing rock twice in a row is not allowed.</li>
       </ul>
       <button className="mt-4 px-4 py-2 bg-red-500 text-white rounded" onClick={onClose}>
-        Fechar
+        Close
       </button>
     </Modal>
-  );
+  );  
 };
 
 export default RulesModal;

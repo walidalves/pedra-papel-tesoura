@@ -10,16 +10,16 @@ const Play = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <h1 className="header">Escolha Pedra, Papel ou Tesoura</h1>
+      <h1 className="header">Choose Rock, Paper, or Scissors</h1>
       <div className="flex space-x-4 choice-buttons">
-        <button onClick={() => handleChoice('Pedra')} className="button">
-          Pedra
+        <button onClick={() => handleChoice('Rock')} className="button">
+          Rock
         </button>
-        <button onClick={() => handleChoice('Papel')} className="button">
-          Papel
+        <button onClick={() => handleChoice('Paper')} className="button">
+          Paper
         </button>
-        <button onClick={() => handleChoice('Tesoura')} className="button">
-          Tesoura
+        <button onClick={() => handleChoice('Scissors')} className="button">
+          Scissors
         </button>
       </div>
     </div>
