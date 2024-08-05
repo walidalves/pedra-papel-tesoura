@@ -9,7 +9,7 @@ Rock beats Scissors.
 Scissors beat Paper.
 Paper beats Rock.
 This project was developed to practice skills in React and Vite, focusing on creating an interactive and responsive web application.
-## Stack utilizada
+## Stack Used
 
 **Front-end:** React, Javascript, TailwindCSS
 
@@ -91,7 +91,7 @@ rock-paper-scissors/
 
 ## Contribution
 Contributions are welcome! If you want to contribute to this project, feel free to open an issue or submit a pull request.
-## Autores
+## Authors
 
 - [@walidalves](https://www.github.com/walidalves)
 
