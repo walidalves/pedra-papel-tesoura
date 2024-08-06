@@ -24,7 +24,7 @@ This project was developed to practice skills in React and Vite, focusing on cre
 1 - Clone this repository:
 
 ```bash
-  git clone https://github.com/your-username/rock-paper-scissors.git
+  git clone https://github.com/walidalves/rock-paper-scissors.git
 ```
 
 2 - Navigate to the project directory:
